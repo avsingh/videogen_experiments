@@ -1,0 +1,59 @@
+job: extension
+config:
+  name: sunset_style_high_noise
+  process:
+    - type: sd_trainer
+      training_folder: output/sunset_high
+      device: cuda:0
+      trigger_word: "sunset_style"
+      
+      network:
+        type: lora
+        linear: 32
+        linear_alpha: 32
+      
+      save:
+        dtype: float16
+        save_every: 500
+        max_step_saves_to_keep: 2
+      
+      datasets:
+        - folder_path: datasets/sunset_style
+          caption_ext: txt
+          caption_dropout_rate: 0.05
+          shuffle_tokens: false
+          cache_latents_to_disk: true
+          resolution: 512
+      
+      train:
+        batch_size: 1
+        steps: 3000
+        gradient_accumulation_steps: 1
+        train_unet: true
+        train_text_encoder: false
+        content_or_style: balanced
+        gradient_checkpointing: true
+        noise_scheduler: flowmatch
+        optimizer: adamw8bit
+        lr: 0.0003
+        
+        ema_config:
+          use_ema: true
+          ema_decay: 0.99
+        
+      model:
+        name_or_path: models/wan2.2/split_files/diffusion_models/wan2.2_t2v_high_noise_14B_fp16.safetensors
+        is_wan: true
+        wan_version: "2.2"
+        vae_path: models/wan2.2/split_files/vae/wan_2.1_vae.safetensors
+        text_encoder_path: models/wan2.2/split_files/text_encoders/umt5_xxl_fp16.safetensors
+        
+      sample:
+        sampler: flowmatch
+        sample_every: 500
+        width: 512
+        height: 512
+        prompts:
+          - "A cat sitting on a beach at sunset_style"
+          - "A city skyline during sunset_style"
+          - "Mountains landscape with sunset_style lighting"

@@ -1,0 +1,7 @@
+[general]
+resolution = 512
+
+[[datasets]]
+  batch_size = 1
+  image_dir = "dataset/sunset_style"
+  num_repeats = 1
