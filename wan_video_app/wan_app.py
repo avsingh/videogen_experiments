@@ -18,7 +18,7 @@ os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Simple user credentials - CHANGE THESE!
 USERS = {
-    'admin': 'scrypt:32768:8:1$QBdvhTalvDoPaCeS$7ba08a4495b91dd2fbc1d90461803b737164f02f6ad9948ad39e8dc1c007538c9d3950462afdef5fff8cea2a5b8f949210a80c7cca1887729db221441faa1167'
+    'admin': 'scrypt:32768:8:1$hEhmccXUK5Z2r7HX$e93613535aea19f49f4073323ad24648d2ed4dd0a45fea3de40a56a7f5f47dd3984f2a19822e4b194734b6b6f902aaae6b976689e98f7da0547cf467d96bfe15'
 }
 
 def login_required(f):
